@@ -10,7 +10,7 @@ let cardExpMonth = document.getElementById("exp-month");
 let cardExpYear = document.getElementById("exp-year");
 let cardCvv = document.getElementById("card-cvv");
 
-
+let submitButton = document.getElementById("submit-button");
 
 nameInput.addEventListener("input", () => {
     cardName.innerText = nameInput.value;
@@ -40,8 +40,55 @@ let showError = (errorElement, errorMessege) => {
     document.querySelector("#" + errorElement + "-error").innerText = errorMessege;
 }
 
-let hideError = (errorElement) => {
+let removeError = (errorElement) => {
     document.querySelector("#" + errorElement + "-label").style.color = "var(--very-dark-violet)";
     document.querySelector("#" + errorElement + "-input").style.borderColor = "var(--voilet)";
     document.querySelector("#" + errorElement + "-error").innerText = "";
 }
+
+let errorChecker = () => {
+    if (nameInput.value.trim() == "") {
+        showError("name", "This field is required");
+    } 
+    else {
+        removeError("name");
+    }
+
+    if (numberInput.value.trim() == "") {
+        showError("number", "This field is required");
+    }
+    else if (numberInput.value < 16) {
+        showError("number", "Invalid input")
+    } 
+    else {
+        removeError("number");
+    }
+
+    if (expMonthInput.value.trim() == "") {
+        showError("expmonth", "Can't be blank");
+    } 
+    else if (expMonthInput.value > 12 || expMonthInput.value == 0) {
+        showError("expmonth", "Invalid input");
+    }
+    else {
+        removeError("expmonth");
+    }
+
+    if (expYearInput.value.trim() == "") {
+        showError("expyear", "Can't be blank");
+    }
+    else {
+        removeError("expyear");
+    }
+
+    if(cvvInput.value.trim() == "") {
+        showError("cvv", "Can't be blank");
+    }
+    else {
+        removeError("cvv");
+    }
+}
+
+submitButton.addEventListener("click", () => {
+    errorChecker();
+});

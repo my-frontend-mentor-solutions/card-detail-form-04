@@ -35,6 +35,7 @@ button {
     box-sizing: border-box;
     float: left;
     font-family: 'Space Grotesk', sans-serif;
+    transition-duration: .2s;
 }
 
 #container {
