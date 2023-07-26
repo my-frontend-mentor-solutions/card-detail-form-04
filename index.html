@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Detail Form</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+    <div id="container">
+        <div id="graphic-container">
+            <img src="images/bg-main-desktop.png" id="graphic-img">
+        </div>
+        <div id="form-container">
+            <div id="form-wrapper">
+                <label for="name-input" id="name-label" class="all-label">CARDHOLDER NAME</label>
+                <input type="text" id="name-input" class="all-input" placeholder="Your Name">
+                <p id="name-error" class="all-error"></p>
+
+                <label for="number-input" id="number-label" class="all-label">CARD NUMBER</label>
+                <input type="number" id="number-input" class="all-input" placeholder="1234 1234 1234 1234">
+                <p id="number-error" class="all-error"></p>
+
+                <div id="expdate-cvv-container">
+                    <div id="expdate-wrapper">
+                        <p id="expdate-label" class="all-label">EXPIRY DATE</p>
+                        <div id="expdate-inner-wrapper">
+                            <div id="expmonth-container">
+                                <input type="number" id="expmonth-input" class="all-input" placeholder="MM">
+                                <p id="expmonth-error" class="all-error"></p>
+                            </div>
+                            <div id="expyear-container">
+                                <input type="number" id="expyear-input" class="all-input" placeholder="YY">
+                                <p id="expyear-error" class="all-error"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="cvv-wrapper">
+                        <label for="cvv-input" id="cvv-label" class="all-label">CVV</label>
+                        <input type="number" id="cvv-input" class="all-input" placeholder="123">
+                        <p id="cvv-error" class="all-error"></p>
+                    </div>
+                </div>
+
+                <div id="button-container">
+                    <button type="button" id="submit-button">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="card-container">
+        <div id="card-front-wrapper">
+            <div id="card-front">
+                <p id="card-number">---- ---- ---- ----</p>
+                <div id="card-validity">
+                    <span id="exp-month">--</span>/<span id="exp-year">--</span>
+                </div>
+                <p id="card-holder-name">YOUR NAME</p>
+                <p id="card-type">TYPE</p>
+            </div>
+        </div>
+        <div id="card-back-wrapper">
+            <div id="card-back">
+                <id id="card-cvv">---</id>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="index.js"></script>
+</body>
+
+</html>
