@@ -73,11 +73,12 @@ button {
 }
 
 .all-input {
-    padding: 9px 12px;
+    padding: 10px 12px;
     font-size: 15px;
     border-radius: 10px;
+    letter-spacing: 2px;
     outline: none;
-    border: 2px solid var(--light-grayish-violet);
+    border: 1.5px solid var(--light-grayish-violet);
     transition-duration: .2s;
 }
 
@@ -86,7 +87,7 @@ button {
 }
 
 .all-input:focus {
-    border: 2px solid var(--voilet);
+    border: 1.5px solid var(--voilet);
 }
 
 .all-input::-webkit-outer-spin-button,
@@ -103,16 +104,15 @@ button {
     color: var(--voilet);
 }
 
-#expdate-label:has(+ .all-input:focus) {
-    color: var(--voilet);
-
-}
-
 .all-error {
     font-size: 11px;
     color: var(--red);
     height: 11px;
     padding-top: 2px;
+}
+
+#name-input, #number-input {
+    letter-spacing: 1px;
 }
 
 #name-label {
@@ -130,7 +130,7 @@ button {
     padding: 20px 0;
 }
 
-#expdate-wrapper {
+#expdate-wrapper, #cvv-wrapper {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -140,26 +140,11 @@ button {
     padding: 3px 0;
 }
 
-#expdate-inner-wrapper {
-    display: flex;
-    flex-direction: row;
-}
-
-#expmonth-container,
-#expyear-container {
-    display: flex;
-    flex-direction: column;
-}
-
-#expmonth-input,
-#expyear-input {
+#expdate-input {
     width: 70%;
 }
 
 #cvv-wrapper {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
     padding-left: 25px;
 }
 
@@ -169,6 +154,23 @@ button {
 
 #cvv-input {
     width: 50%;
+}
+
+#cardtype-container {
+    padding-bottom: 25px;
+}
+
+#cardtype-label {
+    width: 25%;
+    margin-right: 20px;
+}
+
+#cardtype-input {
+    width: 45%;
+}
+
+#cardtype-error {
+    width: 100%;
 }
 
 #button-container {
@@ -193,7 +195,50 @@ button {
     background-color: var(--voilet);
 }
 
+#success-page-container {
+    flex: 7;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
 
+#success-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#tick {
+    margin-bottom:30px;
+    width: 80px;
+    height: 80px;
+}
+
+#tick-img {
+    background-image: linear-gradient(#6448fe, #600594);
+    border-radius: 50%;
+    padding: 10px;
+    color: #fff;
+    aspect-ratio: 1/1;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#messege {
+    font-size: 28px;
+    letter-spacing: 3px;
+    color: var(--very-dark-violet);
+}
+
+#description {
+    margin-top: 10px;
+    font-size: 18px;
+    color: var(--dark-grayish-violet);
+    word-spacing: 3px;
+}
 
 
 

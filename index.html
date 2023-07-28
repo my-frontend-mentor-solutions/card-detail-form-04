@@ -21,22 +21,14 @@
                 <p id="name-error" class="all-error"></p>
 
                 <label for="number-input" id="number-label" class="all-label">CARD NUMBER</label>
-                <input type="number" id="number-input" class="all-input" placeholder="1234 1234 1234 1234">
+                <input type="text" id="number-input" class="all-input" placeholder="1234 1234 1234 1234" maxlength="19">
                 <p id="number-error" class="all-error"></p>
 
                 <div id="expdate-cvv-container">
                     <div id="expdate-wrapper">
-                        <p id="expdate-label" class="all-label">EXPIRY DATE</p>
-                        <div id="expdate-inner-wrapper">
-                            <div id="expmonth-container">
-                                <input type="datetime" id="expmonth-input" class="all-input" placeholder="MM">
-                                <p id="expmonth-error" class="all-error"></p>
-                            </div>
-                            <div id="expyear-container">
-                                <input type="number" id="expyear-input" class="all-input" placeholder="YY">
-                                <p id="expyear-error" class="all-error"></p>
-                            </div>
-                        </div>
+                        <label id="expdate-label" class="all-label">EXPIRY DATE</label>
+                        <input type="text" id="expdate-input" class="all-input" placeholder="MM/YY" maxlength="5">
+                        <p id="expdate-error" class="all-error"></p>
                     </div>
 
                     <div id="cvv-wrapper">
@@ -51,15 +43,26 @@
                 </div>
             </div>
         </div>
+        <div id="success-page-container">
+            <div id="success-page-wrapper">
+                <div id="tick">
+                    <i id="tick-img" class="fa-solid fa-check"></i>
+                </div>
+                <div id="messege">
+                    <p>THANK YOU!</p>
+                </div>
+                <div id="description">
+                    <p>We've added your card details</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="card-container">
         <div id="card-front-wrapper">
             <div id="card-front">
                 <p id="card-number">---- ---- ---- ----</p>
-                <div id="card-validity">
-                    <span id="exp-month">--</span>/<span id="exp-year">--</span>
-                </div>
+                <p id="card-validity">--/--</p>
                 <p id="card-holder-name">YOUR NAME</p>
                 <p id="card-type">TYPE</p>
             </div>
@@ -71,8 +74,9 @@
         </div>
     </div>
 
-
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="index.js"></script>
+    <script src="https://kit.fontawesome.com/278cf626ec.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
