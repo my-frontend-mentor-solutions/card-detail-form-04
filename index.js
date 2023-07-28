@@ -11,6 +11,10 @@ let cardCvv = document.getElementById("card-cvv");
 let submitButton = document.getElementById("submit-button");
 
 nameInput.addEventListener("input", () => {
+
+    let nameString = nameInput.value.replace(/[^a-zA-Z ]/g, "");
+    nameInput.value = nameString;
+
     cardName.innerText = nameInput.value;
 })
 
