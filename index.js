@@ -12,7 +12,7 @@ let submitButton = document.getElementById("submit-button");
 
 nameInput.addEventListener("input", () => {
 
-    let nameString = nameInput.value.replace(/[^a-zA-Z ]/g, "");
+    let nameString = nameInput.value.replace(/[^a-zA-Z]/g, "");
     nameInput.value = nameString;
 
     cardName.innerText = nameInput.value;
@@ -33,18 +33,13 @@ numberInput.addEventListener("input", () => {
 numberInput.addEventListener("keydown", function (event) {
     const key = event.key;
     if (key === "Backspace" && numberInput.value.length == 5 && numberInput.value.charAt(4) == ' ') {
-        numberInput.value = numberInput.value.substring(0, 5);
-        console.log("1");
+        numberInput.value = numberInput.value.substring(0, 4);
     }
     if (key === "Backspace" && numberInput.value.length == 10 && numberInput.value.charAt(9) == ' ') {
         numberInput.value = numberInput.value.substring(0, 9);
-        console.log("2");
-
     }
     if (key === "Backspace" && numberInput.value.length == 15 && numberInput.value.charAt(14) == ' ') {
         numberInput.value = numberInput.value.substring(0, 14);
-        console.log("3");
-
     }
 });
 
@@ -64,7 +59,7 @@ expDateInput.addEventListener("input", () => {
 expDateInput.addEventListener("keydown", function (event) {
     const key = event.key;
     if (key === "Backspace" && expDateInput.value.length == 3 && expDateInput.value.charAt(2) == '/') {
-        expDateInput.value = expDateInput.value.replace('/', '');
+        expDateInput.value = expDateInput.value.substring(0, 2);
     }
 });
 
@@ -92,74 +87,70 @@ let refreshInput = () => {
     expDateInput.value = "";
     cvvInput.value = "";
 }
-let checker = false;
 
-let errorChecker = () => {
-
-
-    if (nameInput.value.trim() == "") {
-        showError("name", "This field is required");
-        checker = true;
-    }
-    else {
-        removeError("name");
-        checker = false;
-    }
-
-    if (numberInput.value.trim() == "") {
-        showError("number", "This field is required");
-        checker = true;
-    }
-    else if (numberInput.value < 19) {
-        showError("number", "Invalid input");
-        checker = true;
-    }
-    else {
-        removeError("number");
-        checker = false;
-    }
-
-    if (expDateInput.value.trim() == "") {
-        showError("expdate", "Can't be blank");
-        checker = true;
-    }
-    else if (expDateInput.value < 5) {
-        showError("expdate", "Invalid input");
-        checker = true;
-    }
-    else {
-        removeError("expdate");
-        checker = false;
-    }
-
-    if (cvvInput.value.trim() == "") {
-        showError("cvv", "Can't be blank");
-        checker = true;
-    }
-    else if (cvvInput.value < 3) {
-        showError("cvv", "Invalid input");
-        checker = true;
-    }
-    else {
-        removeError("cvv");
-        checker = false;
-    }
-}
 
 let formContainer = document.getElementById("form-container");
 let successPageContainer = document.getElementById("success-page-container");
 
 submitButton.addEventListener("click", () => {
-    errorChecker();
 
-    if (checker == false) {
-        formContainer.style.display = "none";
-        successPageContainer.style.display = "flex";
-        refreshInput();
+    let isError = false;
 
-        setTimeout(() => {
-            formContainer.style.display = "flex";
-            successPageContainer.style.display = "none";
-        }, 3000)
-    }
+    if (!validateInput(inputType.CARD_HOLDER_NAME)) isError = true;
+    if (!validateInput(inputType.CARD_NUMBER)) isError = true;
+    if (!validateInput(inputType.EXP_DATE)) isError = true;
+    if (!validateInput(inputType.CVV)) isError = true;
+
+    if (isError) return;
+
+    formContainer.style.display = "none";
+    successPageContainer.style.display = "flex";
+    refreshInput();
+    setTimeout(() => {
+        formContainer.style.display = "flex";
+        successPageContainer.style.display = "none";
+    }, 3000);
+
 });
+
+const inputType = {
+    CARD_HOLDER_NAME: "CARD_HOLDER_NAME",
+    CARD_NUMBER: "CARD_NUMBER",
+    EXP_DATE: "EXP_DATE",
+    CVV: "CVV"
+};
+const inputMinLength = {
+    CARD_HOLDER_NAME: 3,
+    CARD_NUMBER: 19,
+    EXP_DATE: 5,
+    CVV: 3
+};
+const inputMaxLength = {
+    CARD_HOLDER_NAME: 50,
+    CARD_NUMBER: 19,
+    EXP_DATE: 5,
+    CVV: 3
+};
+const inputElementMapping = {
+    CARD_HOLDER_NAME: "name",
+    CARD_NUMBER: "number",
+    EXP_DATE: "expdate",
+    CVV: "cvv"
+};
+
+const validateInput = (inputType) => {
+    const inputBaseId = inputElementMapping[inputType];
+    const inputElement = document.getElementById(inputBaseId + "-input");
+
+    if (inputElement.value.trim() == "") {
+        showError(inputBaseId, "Required!");
+        return false;
+    }
+    else if (inputElement.value.length < inputMinLength[inputType] ||
+        inputElement.value.length > inputMaxLength[inputType]) {
+        showError(inputBaseId, "Invalid input");
+        return false;
+    }
+    removeError(inputBaseId);
+    return true;
+}
