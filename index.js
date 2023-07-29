@@ -9,14 +9,22 @@ let cardExpDate = document.getElementById("card-validity");
 let cardCvv = document.getElementById("card-cvv");
 
 let submitButton = document.getElementById("submit-button");
+let formContainer = document.getElementById("form-container");
+let successPageContainer = document.getElementById("success-page-container");
 
 nameInput.addEventListener("input", () => {
 
-    let nameString = nameInput.value.replace(/[^a-zA-Z]/g, "");
+    let nameString = nameInput.value.replace(/[^a-zA-Z ]/g, "");
     nameInput.value = nameString;
 
     cardName.innerText = nameInput.value;
-})
+
+    if (nameInput.value.trim() == "") {
+        cardName.innerText = "YOUR NAME";
+    }
+});
+
+let cardType = "unknown";
 
 numberInput.addEventListener("input", () => {
 
@@ -27,18 +35,59 @@ numberInput.addEventListener("input", () => {
         numberInput.value += ' ';
     }
 
+    numberString = numberInput.value;
+
+    showCardType(getCardType(numberString));
+    
     cardNumber.innerText = numberInput.value;
+
+    if (numberInput.value.trim() == "") {
+        cardNumber.innerText = "---- ---- ---- ----";
+    }
 });
 
+const showCardType = (type) => {
+    console.log(type);
+    if (cardType != type) {
+        document.querySelector("#unknown").style.display = "none";
+        document.querySelector("#" + type).style.display = "block";
+        cardType = type;
+        console.log("if");
+    }
+    // else {
+    //     document.querySelector("#unknown").style.display = "block";
+    //     document.querySelector("#" + type).style.display = "none";
+    //     console.log("else");
+
+    // }
+}
+
+function getCardType(numberString) {
+    numberString = numberString.replace(/[^\d]/g, '');
+
+    const cardTypes = [
+      { name: 'visa', pattern: /^4\d{12}(\d{3})?$/g },
+      { name: 'mastercard', pattern: /^5[1-5]\d{14}$/g },
+      { name: 'american-express', pattern: /^3[47]\d{13}$/g },
+      { name: 'rupay' , pattern: /^6(?!011)(?:0[0-9]{14}|52[12][0-9]{12})$/g },
+      { name: 'discover', pattern: /^6(?:011|5\d{2})\d{12}$/g },
+    //   { name: 'unknown', pattern: /[^\d]/g },
+    ];
+
+    const matchedCard = cardTypes.find((cardType) => cardType.pattern.test(numberString));
+    return matchedCard ? matchedCard.name : "unknown";
+}
+
 numberInput.addEventListener("keydown", function (event) {
+
     const key = event.key;
-    if (key === "Backspace" && numberInput.value.length == 5 && numberInput.value.charAt(4) == ' ') {
+    if ((key === "Backspace" || key === "Delete") && numberInput.value.length == 5 && numberInput.value.charAt(4) == ' ') {
         numberInput.value = numberInput.value.substring(0, 4);
     }
-    if (key === "Backspace" && numberInput.value.length == 10 && numberInput.value.charAt(9) == ' ') {
+    if ((key === "Backspace" || key === "Delete") && numberInput.value.length == 10 && numberInput.value.charAt(9) == ' ') {
         numberInput.value = numberInput.value.substring(0, 9);
     }
-    if (key === "Backspace" && numberInput.value.length == 15 && numberInput.value.charAt(14) == ' ') {
+    if ((key === "Backspace" || key === "Delete") && numberInput.value.length == 15 && numberInput.value.charAt(14) == ' ') {
         numberInput.value = numberInput.value.substring(0, 14);
     }
 });
@@ -48,17 +97,21 @@ expDateInput.addEventListener("input", () => {
     let dateString = expDateInput.value.replace(/[^\d/]/g, "");
     expDateInput.value = dateString;
 
-
     if (dateString.length == 2) {
         expDateInput.value = dateString + '/';
     }
 
     cardExpDate.innerText = expDateInput.value;
+
+    if (expDateInput.value.trim() == "") {
+        cardExpDate.innerText = "MM/YY";
+    }
 });
 
 expDateInput.addEventListener("keydown", function (event) {
+
     const key = event.key;
-    if (key === "Backspace" && expDateInput.value.length == 3 && expDateInput.value.charAt(2) == '/') {
+    if ((key === "Backspace" || key === "Delete") && expDateInput.value.length == 3 && expDateInput.value.charAt(2) == '/') {
         expDateInput.value = expDateInput.value.substring(0, 2);
     }
 });
@@ -67,30 +120,11 @@ expDateInput.addEventListener("keydown", function (event) {
 cvvInput.addEventListener("input", () => {
     cvvInput.value = cvvInput.value.slice(0, 3);
     cardCvv.innerText = cvvInput.value;
+
+    if (cvvInput.value.trim() == "") {
+        cardCvv.innerText = "---";
+    }
 })
-
-let showError = (errorElement, errorMessege) => {
-    document.querySelector("#" + errorElement + "-label").style.color = "var(--red)";
-    document.querySelector("#" + errorElement + "-input").style.borderColor = "var(--red)";
-    document.querySelector("#" + errorElement + "-error").innerText = errorMessege;
-}
-
-let removeError = (errorElement) => {
-    document.querySelector("#" + errorElement + "-label").style.color = "var(--very-dark-violet)";
-    document.querySelector("#" + errorElement + "-input").style.borderColor = "var(--light-grayish-violet)";
-    document.querySelector("#" + errorElement + "-error").innerText = "";
-}
-
-let refreshInput = () => {
-    nameInput.value = "";
-    numberInput.value = "";
-    expDateInput.value = "";
-    cvvInput.value = "";
-}
-
-
-let formContainer = document.getElementById("form-container");
-let successPageContainer = document.getElementById("success-page-container");
 
 submitButton.addEventListener("click", () => {
 
@@ -153,4 +187,22 @@ const validateInput = (inputType) => {
     }
     removeError(inputBaseId);
     return true;
+}
+const showError = (errorElement, errorMessege) => {
+    document.querySelector("#" + errorElement + "-label").style.color = "var(--red)";
+    document.querySelector("#" + errorElement + "-input").style.borderColor = "var(--red)";
+    document.querySelector("#" + errorElement + "-error").innerText = errorMessege;
+}
+
+const removeError = (errorElement) => {
+    document.querySelector("#" + errorElement + "-label").style.color = "var(--very-dark-violet)";
+    document.querySelector("#" + errorElement + "-input").style.borderColor = "var(--light-grayish-violet)";
+    document.querySelector("#" + errorElement + "-error").innerText = "";
+}
+
+const refreshInput = () => {
+    nameInput.value = "";
+    numberInput.value = "";
+    expDateInput.value = "";
+    cvvInput.value = "";
 }
