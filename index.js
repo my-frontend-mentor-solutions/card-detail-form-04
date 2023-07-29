@@ -200,7 +200,7 @@ const removeError = (errorElement) => {
     document.querySelector("#" + errorElement + "-error").innerText = "";
 }
 
-const refreshInput = () => {
+let refreshInput = () => {
     nameInput.value = "";
     numberInput.value = "";
     expDateInput.value = "";
