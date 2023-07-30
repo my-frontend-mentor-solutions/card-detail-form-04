@@ -47,19 +47,19 @@ numberInput.addEventListener("input", () => {
 });
 
 const showCardType = (type) => {
-    console.log(type);
     if (cardType != type) {
-        document.querySelector("#unknown").style.display = "none";
-        document.querySelector("#" + type).style.display = "block";
+        setCardIcon(type);
         cardType = type;
-        console.log("if");
     }
-    // else {
-    //     document.querySelector("#unknown").style.display = "block";
-    //     document.querySelector("#" + type).style.display = "none";
-    //     console.log("else");
+}
 
-    // }
+const setCardIcon = (type) => {
+    if (type == null) {
+        document.getElementById("card-type").innerHTML = "";
+    } else {
+        const cardIconHTML = `<img src="./images/${type}.png"/>`;
+        document.getElementById("card-type").innerHTML = cardIconHTML;
+    }
 }
 
 function getCardType(numberString) {
@@ -71,11 +71,10 @@ function getCardType(numberString) {
       { name: 'american-express', pattern: /^3[47]\d{13}$/g },
       { name: 'rupay' , pattern: /^6(?!011)(?:0[0-9]{14}|52[12][0-9]{12})$/g },
       { name: 'discover', pattern: /^6(?:011|5\d{2})\d{12}$/g },
-    //   { name: 'unknown', pattern: /[^\d]/g },
     ];
 
     const matchedCard = cardTypes.find((cardType) => cardType.pattern.test(numberString));
-    return matchedCard ? matchedCard.name : "unknown";
+    return matchedCard ? matchedCard.name : null;
 }
 
 numberInput.addEventListener("keydown", function (event) {
@@ -139,8 +138,8 @@ submitButton.addEventListener("click", () => {
 
     formContainer.style.display = "none";
     successPageContainer.style.display = "flex";
-    refreshInput();
     setTimeout(() => {
+        refreshInput();
         formContainer.style.display = "flex";
         successPageContainer.style.display = "none";
     }, 3000);
@@ -200,9 +199,13 @@ const removeError = (errorElement) => {
     document.querySelector("#" + errorElement + "-error").innerText = "";
 }
 
-let refreshInput = () => {
+const refreshInput = () => {
     nameInput.value = "";
     numberInput.value = "";
     expDateInput.value = "";
     cvvInput.value = "";
+    nameInput.dispatchEvent(new Event("input", { bubbles: true}));
+    numberInput.dispatchEvent(new Event("input", { bubbles: true}));
+    expDateInput.dispatchEvent(new Event("input", { bubbles: true}));
+    cvvInput.dispatchEvent(new Event("input", { bubbles: true}));
 }
