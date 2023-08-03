@@ -505,7 +505,7 @@ button {
     
     #card-front-wrapper,
     #card-back-wrapper {
-        width: 80%;
+        width: 70%;
         aspect-ratio: 16/9;
         right: auto;
         left: 50%;
@@ -513,13 +513,13 @@ button {
     }
     
     #card-front-wrapper {
-        top: 130px;
+        top: 120px;
         z-index: 1;
         left: 42%;
     }
     
     #card-back-wrapper {
-        top: 30px;
+        top: 20px;
         left: 55%;
     }
     
