@@ -212,7 +212,16 @@ const refreshInput = () => {
 
 
 let noticeCloseButton = document.getElementById("notice-close-button");
+let noticeContainer = document.getElementById("notice-container");
 
 noticeCloseButton.addEventListener('click', () => {
     document.getElementById("notice-container").style.display = "none";
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    noticeContainer.style.display = 'inline-block';
+
+    setTimeout(() => {
+    noticeContainer.classList.add("notice-container");
+    }, 10000);
 });

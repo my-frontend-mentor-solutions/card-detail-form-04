@@ -2,7 +2,8 @@
 
 :root {
     --red: #ff5252;
-    --light-grayish-violet: #e2e0e5;
+    --light-grayish-violet: #ece8ec;
+    --light-grayish: #c0bdc0;
     --dark-grayish-violet: #9a939e;
     --very-dark-violet: #21092f;
     --voilet: #4134d2;
@@ -48,9 +49,15 @@ button {
     display: flex;
     flex-direction: column;
     color: var(--very-dark-violet);
+    transition: transform .5s ease-in-out;
+}
+
+.notice-container {
+    transform: translateY(-100%); 
 }
 
 #notice-wrapper {
+    width: 100%;
     padding: 15px;
     display: flex;
     align-items: center;
@@ -129,12 +136,12 @@ button {
     border-radius: 10px;
     letter-spacing: 2px;
     outline: none;
-    border: 1.5px solid var(--light-grayish-violet);
+    border: 1.5px solid var(--light-grayish);
     transition-duration: .2s;
 }
 
 .all-input::placeholder {
-    color: var(--light-grayish-violet);
+    color: var(--light-grayish);
 }
 
 .all-input:focus {
@@ -430,12 +437,12 @@ button {
         border-radius: 10px;
         letter-spacing: 2px;
         outline: none;
-        border: 1.5px solid var(--light-grayish-violet);
+        border: 1.5px solid var(--light-grayish);
         transition-duration: .2s;
     }
     
     .all-input::placeholder {
-        color: var(--light-grayish-violet);
+        color: var(--light-grayish);
     }
     
     .all-input:focus {
