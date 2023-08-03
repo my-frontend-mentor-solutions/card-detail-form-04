@@ -72,10 +72,6 @@ button {
     margin-right: 5px;
 }
 
-#notice-description {
-
-}
-
 #notice-close-button {
     width: 100%;
     display: flex;
@@ -593,7 +589,7 @@ button {
     }
     
     #card-front-wrapper {
-        top: 120px;
+        top: 110px;
         z-index: 1;
         left: 42%;
     }
