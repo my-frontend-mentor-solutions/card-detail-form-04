@@ -209,3 +209,10 @@ const refreshInput = () => {
     expDateInput.dispatchEvent(new Event("input", { bubbles: true}));
     cvvInput.dispatchEvent(new Event("input", { bubbles: true}));
 }
+
+
+let noticeCloseButton = document.getElementById("notice-close-button");
+
+noticeCloseButton.addEventListener('click', () => {
+    document.getElementById("notice-container").style.display = "none";
+});
